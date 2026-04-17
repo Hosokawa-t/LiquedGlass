@@ -16,9 +16,9 @@
   --lg-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
 
   /* --- Light Theme (iOS Classic Translucent) --- */
-  /* Gradient background for volumetric glass */
-  --lg-bg-light: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.15) 100%);
-  --lg-bg-light-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.25) 100%);
+  /* Uniform solid background for clean transparent glass */
+  --lg-bg-light: rgba(255, 255, 255, 0.45);
+  --lg-bg-light-hover: rgba(255, 255, 255, 0.6);
   --lg-bg-light-active: rgba(255, 255, 255, 0.7);
   
   --lg-border-light: rgba(255, 255, 255, 0.35);
@@ -32,9 +32,9 @@
   --lg-text-light-muted: rgba(0, 0, 0, 0.5);
 
   /* --- Dark Theme (VisionOS / Mac OS Dark Vibe) --- */
-  --lg-bg-dark: linear-gradient(135deg, rgba(120, 120, 120, 0.18) 0%, rgba(0, 0, 0, 0.25) 100%);
-  --lg-bg-dark-hover: linear-gradient(135deg, rgba(150, 150, 150, 0.25) 0%, rgba(20, 20, 20, 0.3) 100%);
-  --lg-bg-dark-active: rgba(200, 200, 200, 0.25);
+  --lg-bg-dark: rgba(90, 90, 90, 0.18);
+  --lg-bg-dark-hover: rgba(120, 120, 120, 0.25);
+  --lg-bg-dark-active: rgba(150, 150, 150, 0.25);
   
   --lg-border-dark: rgba(255, 255, 255, 0.12);
   
@@ -50,8 +50,9 @@
    ========================================================================= */
 
 .lg-glass {
-  /* Using multiple backgrounds: Noise texture on top, volumetric gradient on bottom */
-  background-image: var(--lg-noise), var(--lg-bg-light);
+  /* Noise texture for physics + solid background for pure uniform color */
+  background-image: var(--lg-noise);
+  background-color: var(--lg-bg-light);
   
   /* Core Apple Optics */
   -webkit-backdrop-filter: blur(var(--lg-blur-base)) saturate(var(--lg-saturation));
@@ -70,29 +71,12 @@
   overflow: hidden;
 }
 
-/* 3D Specular Highlight (The VisionOS outer sheen) */
-.lg-glass::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  /* Simulating a glass reflection crossing the panel */
-  background: linear-gradient(105deg, rgba(255, 255, 255, 0.3) 0%, transparent 15%, transparent 85%, rgba(255, 255, 255, 0.05) 100%);
-  z-index: 10;
-  mix-blend-mode: overlay;
-}
-
 /* Base Dark Theme Overrides */
 .lg-theme-dark .lg-glass, .lg-glass.lg-dark {
-  background-image: var(--lg-noise), var(--lg-bg-dark);
+  background-color: var(--lg-bg-dark);
   border-color: var(--lg-border-dark);
   box-shadow: var(--lg-shadow-dark), var(--lg-bevel-dark);
   color: var(--lg-text-dark);
-}
-
-.lg-theme-dark .lg-glass::after, .lg-glass.lg-dark::after {
-  background: linear-gradient(105deg, rgba(255, 255, 255, 0.15) 0%, transparent 15%, transparent 85%, rgba(255, 255, 255, 0) 100%);
 }
 
 /* =========================================================================
@@ -101,7 +85,8 @@
 
 /* Action Button - Control Center style toggles or generic pills */
 .lg-btn {
-  background-image: var(--lg-noise), linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+  background-image: var(--lg-noise);
+  background-color: rgba(255, 255, 255, 0.6);
   -webkit-backdrop-filter: blur(var(--lg-blur-base)) saturate(var(--lg-saturation));
   backdrop-filter: blur(var(--lg-blur-base)) saturate(var(--lg-saturation));
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -129,7 +114,7 @@
 }
 
 .lg-theme-dark .lg-btn, .lg-btn.lg-dark {
-  background-image: var(--lg-noise), linear-gradient(135deg, rgba(120, 120, 120, 0.2) 0%, rgba(40, 40, 40, 0.2) 100%);
+  background-color: rgba(120, 120, 120, 0.2);
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 6px rgba(0,0,0,0.3);
   color: var(--lg-text-dark);
@@ -140,14 +125,15 @@
 
 /* Solid iOS Primary Button (e.g. system blue) */
 .lg-btn-primary {
-  background: #007AFF; /* Exactly iOS Blue */
+  background-image: none;
+  background-color: #007AFF; /* Exactly iOS Blue */
   color: #fff;
   border: none;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 8px rgba(0, 122, 255, 0.3);
 }
 .lg-btn-primary:active {
   transform: scale(0.95);
-  background: #0066d6;
+  background-color: #0066d6;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 1px 4px rgba(0, 122, 255, 0.3);
 }
 
@@ -156,7 +142,8 @@
   width: 64px;
   height: 64px;
   border-radius: var(--lg-radius-sm);
-  background-image: var(--lg-noise), linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+  background-image: var(--lg-noise);
+  background-color: rgba(255, 255, 255, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -164,7 +151,7 @@
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 6px rgba(0,0,0,0.05);
-  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), background 0.2s;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s;
   color: var(--lg-text-light);
   -webkit-backdrop-filter: blur(var(--lg-blur-base));
   backdrop-filter: blur(var(--lg-blur-base));
@@ -172,7 +159,7 @@
   overflow: hidden;
 }
 .lg-theme-dark .lg-cc-toggle {
-  background-image: var(--lg-noise), linear-gradient(135deg, rgba(120, 120, 120, 0.2) 0%, rgba(40, 40, 40, 0.2) 100%);
+  background-color: rgba(120, 120, 120, 0.2);
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 6px rgba(0,0,0,0.2);
   color: #fff;
@@ -181,13 +168,14 @@
   transform: scale(0.92);
 }
 .lg-cc-toggle.active {
-  background: #007AFF;
+  background-image: none;
+  background-color: #007AFF;
   border-color: transparent;
   color: white;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 8px rgba(0, 122, 255, 0.3);
 }
 .lg-theme-dark .lg-cc-toggle.active {
-  background: #0A84FF;
+  background-color: #0A84FF;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 8px rgba(10, 132, 255, 0.3);
 }
 
