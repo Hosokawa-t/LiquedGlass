@@ -1,60 +1,39 @@
-/* LiquidGlass UI - Ultimate Refractive Physics (True Transparency & Dispersion) */
+/* LiquidGlass UI - Ultimate Edge Refraction Physics */
 
 :root {
-  /* High contrast/saturation to simulate light focusing through thick glass */
+  /* True Transparency Lighting */
   --lg-blur-base: 45px;
-  --lg-saturation: 250%; /* Boosted saturation for refractive light gathering */
-  --lg-contrast: 1.15; /* Increased contrast to make the glass pop against the background */
+  --lg-saturation: 250%; 
+  --lg-contrast: 1.15; 
   --lg-brightness-light: 1.1;
   --lg-brightness-dark: 1.2;
   --lg-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   
+  /* Standard Radii */
   --lg-radius-sm: 14px;
   --lg-radius-md: 26px;
   --lg-radius-lg: 38px;
   --lg-radius-pill: 999px;
 
-  /* Noise pattern to simulate physical acrylic/glass material impurities */
+  /* Physical Impurity Film */
   --lg-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
 
-  /* --- Light Theme (Physical Glass) --- */
-  /* We remove almost all white coloring to create TRUE transparency */
+  /* --- Light Theme --- */
   --lg-bg-light: rgba(255, 255, 255, 0.02);
-  --lg-bg-light-hover: rgba(255, 255, 255, 0.08);
-  --lg-bg-light-active: rgba(255, 255, 255, 0.15);
-  
   --lg-border-light: rgba(255, 255, 255, 0.4);
-  
-  /* Primary Drop Shadow + Crystal Bevels */
+  /* Primary Soft Dropshadows and Bevels */
   --lg-shadow-light: 0 16px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
   --lg-bevel-light: inset 0 1px 1px rgba(255, 255, 255, 0.9), inset 0 -1px 1px rgba(255, 255, 255, 0.3);
   
-  /* Chromatic Aberration / Refractive Color Shift (Cyan on left/top, Magenta/Red on right/bottom) */
-  --lg-refraction-light: 
-    inset 1.5px 0 2px -1px rgba(0, 255, 255, 0.4),
-    inset -1.5px 0 2px -1px rgba(255, 0, 128, 0.4),
-    inset 0 1.5px 2px -1px rgba(100, 255, 100, 0.4),
-    inset 0 -1.5px 2px -1px rgba(0, 0, 255, 0.4);
-
   --lg-text-light: rgba(0, 0, 0, 0.9);
   --lg-text-light-muted: rgba(0, 0, 0, 0.5);
 
   /* --- Dark Theme --- */
-  --lg-bg-dark: rgba(0, 0, 0, 0.05); /* Extremely transparent */
-  --lg-bg-dark-hover: rgba(255, 255, 255, 0.05);
-  --lg-bg-dark-active: rgba(255, 255, 255, 0.1);
-  
+  --lg-bg-dark: rgba(0, 0, 0, 0.05);
   --lg-border-dark: rgba(255, 255, 255, 0.2);
-  
   --lg-shadow-dark: 0 20px 50px rgba(0, 0, 0, 0.5), 0 6px 16px rgba(0, 0, 0, 0.3);
   --lg-bevel-dark: inset 0 1px 1px rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(255, 255, 255, 0.05);
   
-  --lg-refraction-dark: 
-    inset 1.5px 0 2px -1px rgba(0, 255, 255, 0.3),
-    inset -1.5px 0 2px -1px rgba(255, 0, 128, 0.3),
-    inset 0 1.5px 2px -1px rgba(100, 255, 100, 0.3),
-    inset 0 -1.5px 2px -1px rgba(0, 0, 255, 0.3);
-
   --lg-text-dark: #ffffff;
   --lg-text-dark-muted: rgba(255, 255, 255, 0.55);
 }
@@ -64,18 +43,15 @@
    ========================================================================= */
 
 .lg-glass {
-  /* Using exact base transparency + noise */
   background-image: var(--lg-noise);
   background-color: var(--lg-bg-light);
   
-  /* Filter pipeline for intense refraction */
+  /* Flat Glass Translucency */
   -webkit-backdrop-filter: blur(var(--lg-blur-base)) saturate(var(--lg-saturation)) brightness(var(--lg-brightness-light)) contrast(var(--lg-contrast));
   backdrop-filter: blur(var(--lg-blur-base)) saturate(var(--lg-saturation)) brightness(var(--lg-brightness-light)) contrast(var(--lg-contrast));
   
-  /* Solid structural rim */
   border: 1px solid var(--lg-border-light);
-  /* The depth optics mixed with chromatic aberration */
-  box-shadow: var(--lg-shadow-light), var(--lg-bevel-light), var(--lg-refraction-light);
+  box-shadow: var(--lg-shadow-light), var(--lg-bevel-light);
   
   border-radius: var(--lg-radius-md);
   color: var(--lg-text-light);
@@ -83,20 +59,27 @@
   position: relative;
 }
 
-/* Pseudo element for the physical glass edge thickness (Prism effect) */
-.lg-glass::before {
+/* The Magic of True Refraction: Simulating edge curvature and color shifting */
+.lg-glass::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1px;
-  /* Simulating the iridescent light bouncing around the inner edge of the glass */
-  background: linear-gradient(135deg, rgba(0, 220, 255, 0.4), transparent 30%, transparent 70%, rgba(255, 0, 100, 0.3));
+  
+  /* Thickness of the rounded glass edge */
+  padding: 6px; 
+  /* Mask limits the filter strictly to the inner glass rim */
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+  
+  /* The Optical shift: we drastically shift hues and blur to simulate background refracting through the bevel */
+  -webkit-backdrop-filter: saturate(300%) hue-rotate(-15deg) brightness(1.2) contrast(1.4) blur(16px);
+  backdrop-filter: saturate(300%) hue-rotate(-15deg) brightness(1.2) contrast(1.4) blur(16px);
+  
+  /* Physical edge glare */
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.1) 100%);
   pointer-events: none;
-  opacity: 0.8;
   z-index: 10;
 }
 
@@ -104,15 +87,18 @@
 .lg-theme-dark .lg-glass, .lg-glass.lg-dark {
   background-color: var(--lg-bg-dark);
   border-color: var(--lg-border-dark);
-  box-shadow: var(--lg-shadow-dark), var(--lg-bevel-dark), var(--lg-refraction-dark);
+  box-shadow: var(--lg-shadow-dark), var(--lg-bevel-dark);
   color: var(--lg-text-dark);
+  
   -webkit-backdrop-filter: blur(var(--lg-blur-base)) saturate(var(--lg-saturation)) brightness(var(--lg-brightness-dark)) contrast(var(--lg-contrast));
   backdrop-filter: blur(var(--lg-blur-base)) saturate(var(--lg-saturation)) brightness(var(--lg-brightness-dark)) contrast(var(--lg-contrast));
 }
 
-.lg-theme-dark .lg-glass::before, .lg-glass.lg-dark::before {
-  /* Internal iridescent bounce for dark mode */
-  background: linear-gradient(135deg, rgba(0, 220, 255, 0.3), transparent 30%, transparent 70%, rgba(255, 0, 100, 0.2));
+.lg-theme-dark .lg-glass::after, .lg-glass.lg-dark::after {
+  /* Dark mode edge refraction */
+  -webkit-backdrop-filter: saturate(350%) hue-rotate(20deg) brightness(1.3) contrast(1.5) blur(20px);
+  backdrop-filter: saturate(350%) hue-rotate(20deg) brightness(1.3) contrast(1.5) blur(20px);
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.02) 100%);
 }
 
 /* =========================================================================
@@ -126,12 +112,7 @@
   backdrop-filter: blur(var(--lg-blur-base)) saturate(var(--lg-saturation)) brightness(1.2) contrast(1.1);
   
   border: 1px solid rgba(255, 255, 255, 0.4);
-  /* Chromatic aberration inner ring */
-  box-shadow: 
-    inset 1px 0 2px -1px rgba(0, 255, 255, 0.4), 
-    inset -1px 0 2px -1px rgba(255, 0, 128, 0.4),
-    inset 0 1px 0 rgba(255,255,255,0.8), 
-    0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 4px 12px rgba(0,0,0,0.1);
   
   transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), background-color 0.25s;
   padding: 12px 20px;
@@ -145,23 +126,35 @@
   justify-content: center;
   gap: 8px;
   position: relative;
-  overflow: hidden;
+}
+
+/* Button Refraction Rim */
+.lg-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 3px; 
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  -webkit-backdrop-filter: saturate(200%) hue-rotate(-15deg) brightness(1.2) blur(8px);
+  backdrop-filter: saturate(200%) hue-rotate(-15deg) brightness(1.2) blur(8px);
+  background: rgba(255,255,255,0.1);
+  pointer-events: none;
 }
 
 .lg-theme-dark .lg-btn, .lg-btn.lg-dark {
   background-color: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 
-    inset 1px 0 2px -1px rgba(0, 255, 255, 0.3), 
-    inset -1px 0 2px -1px rgba(255, 0, 128, 0.3),
-    inset 0 1px 0 rgba(255,255,255,0.4), 
-    0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 12px rgba(0,0,0,0.3);
   color: var(--lg-text-dark);
 }
 
 .lg-cc-toggle {
-  width: 64px;
-  height: 64px;
+  /* Fluid width prevents overflow in grids */
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: var(--lg-radius-sm);
   background-image: var(--lg-noise);
   background-color: rgba(255, 255, 255, 0.1);
@@ -171,25 +164,34 @@
   justify-content: center;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 
-    var(--lg-refraction-light),
-    inset 0 1px 0 rgba(255,255,255,0.8), 
-    0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s;
   color: var(--lg-text-light);
   -webkit-backdrop-filter: blur(var(--lg-blur-base)) saturate(var(--lg-saturation)) brightness(1.2) contrast(1.1);
   backdrop-filter: blur(var(--lg-blur-base)) saturate(var(--lg-saturation)) brightness(1.2) contrast(1.1);
   position: relative;
-  overflow: hidden;
+}
+
+/* Toggle Refraction Rim */
+.lg-cc-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 4px; 
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  -webkit-backdrop-filter: saturate(300%) hue-rotate(15deg) brightness(1.3) blur(10px);
+  backdrop-filter: saturate(300%) hue-rotate(15deg) brightness(1.3) blur(10px);
+  background: rgba(255,255,255,0.1);
+  pointer-events: none;
 }
 
 .lg-theme-dark .lg-cc-toggle {
   background-color: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 
-    var(--lg-refraction-dark),
-    inset 0 1px 0 rgba(255,255,255,0.4), 
-    0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 12px rgba(0,0,0,0.3);
   color: #fff;
 }
 
@@ -206,12 +208,14 @@
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
+.lg-cc-toggle.active::after { display: none; }
+
 .lg-theme-dark .lg-cc-toggle.active {
   background-color: #0A84FF;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 8px rgba(10, 132, 255, 0.3);
 }
 
-/* Primary buttons break the glass rules slightly for visual punch */
+/* Primary buttons */
 .lg-btn-primary {
   background-image: none;
   background-color: #007AFF;
@@ -221,6 +225,8 @@
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
+.lg-btn-primary::after { display: none; }
+
 .lg-btn-primary:active {
   background-color: #0066d6;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 1px 4px rgba(0, 122, 255, 0.3);
