@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LiquidGlass UI - iOS Grade</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="./src/liquid-glass.css">
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+  <!-- Hyper realistic Mesh background -->
+  <div class="mesh-bg"></div>
+
+  <div class="app-container">
+    
+    <!-- Top Navigation (Floating Pill style) -->
+    <nav class="lg-glass top-nav">
+      <div class="logo-text">
+        <div class="logo-icon"></div>
+        LiquidGlass
+      </div>
+      <div style="display:flex; gap:12px;">
+        <button class="lg-btn" style="width:40px; height:40px; padding:0; border-radius:50%;" id="theme-toggle">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1 class="lg-text-light">
+        True Depth. <br>
+        Pure Clarity.
+      </h1>
+      <p>A CSS framework reverse-engineered directly from modern mobile operating systems. Immensely blurred, impossibly clean.</p>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid-main">
+      
+      <!-- Card 1: iOS Control Center Simulation -->
+      <div class="lg-glass p-6">
+        <h2 class="lg-title" style="font-size: 22px;">Connectivity</h2>
+        <p class="lg-subtitle">Toggles using extremely precise blur layers.</p>
+        
+        <div class="cc-grid">
+          <div class="lg-cc-toggle active"><i class="fa-solid fa-wifi"></i></div>
+          <div class="lg-cc-toggle active" style="background:#34C759;"><i class="fa-solid fa-signal"></i></div>
+          <div class="lg-cc-toggle active"><i class="fa-brands fa-bluetooth-b"></i></div>
+          <div class="lg-cc-toggle"><i class="fa-solid fa-plane"></i></div>
+          
+          <div class="lg-cc-toggle"><i class="fa-solid fa-moon"></i></div>
+          <div class="lg-cc-toggle"><i class="fa-solid fa-lock"></i></div>
+          <div class="lg-cc-toggle active"><i class="fa-solid fa-battery-full"></i></div>
+          <div class="lg-cc-toggle"><i class="fa-solid fa-camera"></i></div>
+        </div>
+      </div>
+
+      <!-- Card 2: Interactive Widgets -->
+      <div class="lg-glass p-6" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <h2 class="lg-title" style="font-size: 22px;">Widget System</h2>
+          <p class="lg-subtitle mb-4">Nested backdrop-filters.</p>
+          
+          <!-- Inner Music Player Mockup -->
+          <div class="lg-glass p-6" style="border-radius: 18px; display: flex; align-items:center; gap: 16px;">
+            <div style="width: 60px; height: 60px; background: linear-gradient(45deg, #ff2a85, #ff8a2a); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"></div>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; font-size: 16px;">Synthetic</div>
+              <div style="font-size: 14px; opacity: 0.6; margin-bottom: 8px;">Waveform</div>
+              <div style="background: rgba(100,100,100,0.2); height: 4px; border-radius: 2px; width: 100%;">
+                <div style="background: currentColor; height: 100%; border-radius: 2px; width: 45%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex-row" style="margin-top:24px;">
+           <button class="lg-btn-primary lg-btn" style="flex:1;">Play Now</button>
+           <button class="lg-btn lg-btn-primary" style="background: rgba(255,255,255,0.4); color: inherit;"><i class="fa-solid fa-forward-step"></i></button>
+        </div>
+      </div>
+
+      <!-- Card 3: Deep Settings Form -->
+      <div class="lg-glass p-6" style="grid-column: 1 / -1;">
+        <h2 class="lg-title" style="font-size: 22px;">Settings Form</h2>
+        <p class="lg-subtitle mb-4">Inputs optimized for readability over complex backgrounds.</p>
+        
+        <div class="flex-column" style="background: rgba(100,100,100,0.05); padding: 12px; border-radius: 18px;">
+          <input type="text" class="lg-input" placeholder="Search..." style="background: rgba(118, 118, 128, 0.12);" />
+          
+          <div style="display:flex; justify-content:space-between; align-items:center; padding: 8px 4px; border-bottom: 1px solid rgba(150,150,150,0.2);">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <i class="fa-solid fa-gear" style="color: #8e8e93; font-size: 18px;"></i>
+              <span style="font-size:17px; font-weight: 500;">General</span>
+            </div>
+            <i class="fa-solid fa-chevron-right" style="color: #c7c7cc;"></i>
+          </div>
+          
+          <div style="display:flex; justify-content:space-between; align-items:center; padding: 8px 4px; border-bottom: 1px solid rgba(150,150,150,0.2);">
+             <div style="display:flex; align-items:center; gap:12px;">
+              <i class="fa-solid fa-display" style="color: #007aff; font-size: 18px;"></i>
+              <span style="font-size:17px; font-weight: 500;">Display & Brightness</span>
+            </div>
+            <i class="fa-solid fa-chevron-right" style="color: #c7c7cc;"></i>
+          </div>
+          
+           <div style="display:flex; justify-content:space-between; align-items:center; padding: 8px 4px;">
+             <div style="display:flex; align-items:center; gap:12px;">
+              <i class="fa-solid fa-lock" style="color: #34c759; font-size: 18px;"></i>
+              <span style="font-size:17px; font-weight: 500;">Privacy</span>
+            </div>
+            <i class="fa-solid fa-chevron-right" style="color: #c7c7cc;"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="./src/main.js"></script>
+</body>
+</html>
